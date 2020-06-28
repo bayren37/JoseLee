@@ -21,6 +21,12 @@
     <ClCompile Include="main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="Animal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Date.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="reference.h">
@@ -28,6 +34,12 @@
     </ClInclude>
     <ClInclude Include="review.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Animal.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Date.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

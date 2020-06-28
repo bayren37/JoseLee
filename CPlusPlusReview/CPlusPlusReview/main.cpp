@@ -2,29 +2,25 @@
 
 #include "review.h"
 
-int main()
+void main()
 {    
-    if (false)
-    {
-		int a = 0;
-		int& refA = a;
-		review::Reference::makeItFive(a);
-		review::Reference::makeItFive(refA);
+	Date::Date myDay(2020, 6, 29);
 
-		std::cout << a << std::endl;
-		std::cout << refA;
-    }
+	int input;
+	int otherInput;
+	while (true)
+	{
+		std::cin >> input >> otherInput;
 
-	int a = review::Reference::returnValue();
-	int b = review::Reference::returnLocalVar();
-	int c = review::Reference::returnLocalRefferenceVar();
-	int d;
-	int e = review::Reference::makeItFive(d);
+		switch (input)
+		{
+		case 1:myDay.AddDay(otherInput); break;
+		case 2:myDay.AddMonth(otherInput); break;
+		case 3:myDay.AddYear(otherInput); break;
+		default:
+			break;
+		}
 
-	std::cout << "a :" << a << std::endl;
-	std::cout << "b :" << b << std::endl;
-	std::cout << "c :" << c << std::endl;
-	std::cout << "e :" << e << std::endl;
-
-    return 0;
+		myDay.ShowDate();
+	}
 }
