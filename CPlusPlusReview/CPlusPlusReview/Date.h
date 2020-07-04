@@ -7,7 +7,6 @@ namespace Date {
 	class Date {
 	public:
 		Date(int year, int month, int date);
-		void SetDate(int year, int month, int date);
 		void AddDay(int inc);
 		void AddMonth(int inc);
 		void AddYear(int inc);
@@ -15,8 +14,12 @@ namespace Date {
 		void ShowDate();
 
 	private:
+		int DaysInThisMonth();
+		int DaysInFormerMonth();
+
+	private:
 		int year_;
-		int month_;  // 1 부터 12 까지.
-		int day_;    // 1 부터 31 까지.
+		int month_;
+		int day_;
 	};
 }
