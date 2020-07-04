@@ -7,6 +7,11 @@ namespace Date {
 	class Date {
 	public:
 		Date(int year, int month, int date);
+		void SetDate(int year, int month, int date);
+	private:
+		void Verify();
+
+	public:
 		void AddDay(int inc);
 		void AddMonth(int inc);
 		void AddYear(int inc);
@@ -16,6 +21,7 @@ namespace Date {
 	private:
 		int DaysInThisMonth();
 		int DaysInFormerMonth();
+
 
 	private:
 		int year_;

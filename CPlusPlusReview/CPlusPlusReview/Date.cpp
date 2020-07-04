@@ -4,10 +4,27 @@
 namespace Date {
 	constexpr uint32_t MONTH_IN_YEAR = 12;
 
-	Date::Date(int year, int month, int date) : year_(year), month_(month), day_(date) {
+	Date::Date(int year, int month, int date) : year_(year), month_(month), day_(date) 
+	{
+		Verify();
 	}
 
-	void Date::AddDay(int inc) {
+	void Date::SetDate(int year, int month, int date)
+	{
+		year_ = year;
+		month_ = month;
+		day_ = date;
+		Verify();
+	}
+
+	void Date::Verify()
+	{
+		while (day_ > DaysInThisMonth())
+			--day_;
+	}
+
+	void Date::AddDay(int inc)
+	{
 		day_ += inc;
 
 		if (day_ > 0) {
@@ -26,11 +43,13 @@ namespace Date {
 				day_ += daysInformerMonth;
 				AddMonth(-1);
 				daysInformerMonth = DaysInThisMonth();
-			} while (day_ > daysInformerMonth);
+			} while (day_ > daysInformerMonth || day_ < 0);
 		}
+		Verify();
 	}
 
-	void Date::AddMonth(int inc) {
+	void Date::AddMonth(int inc)
+	{
 		month_ += inc;
 		if (month_ > 0) {
 			while (month_ > MONTH_IN_YEAR) {
@@ -44,17 +63,21 @@ namespace Date {
 				AddYear(-1);
 			} while (month_ > MONTH_IN_YEAR);
 		}
+		Verify();
 	}
 
-	void Date::AddYear(int inc) {
+	void Date::AddYear(int inc)
+	{
 		year_ += inc;
 	}
 
-	void Date::ShowDate() {
+	void Date::ShowDate()
+	{
 		printf("TODAY IS %d/%d/%d(YYYY/MM/DD)\n", year_, month_, day_);
 	}
 
-	int Date::DaysInThisMonth() {
+	int Date::DaysInThisMonth()
+	{
 		auto search = std::find_if(FULL_MONTH.begin(), FULL_MONTH.end(),
 			[this](int month) {
 				return month == month_;
@@ -68,7 +91,6 @@ namespace Date {
 			return daysInThisMonth = 28;
 		}
 		else {//Feb, leap year
-			ShowDate();
 			return daysInThisMonth = 29;
 		}
 	}
