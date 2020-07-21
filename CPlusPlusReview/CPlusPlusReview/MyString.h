@@ -1,27 +1,62 @@
 #pragma once
 /*
-*	Copy Constructor https://modoocode.com/188#page-heading-4
-*	생각해보기
-*	아래와 같은 문자열 클래스를 완성해보세요 (난이도 : 中)
+*	Constructor https://modoocode.com/188#page-heading-4
+*	
+*	문자(char) 로 부터의 문자열 생성, C 문자열 (char *) 로 부터의 생성
+*	문자열 길이를 구하는 함수
+*	문자열 뒤에 다른 문자열 붙이기(append)
+*	문자열 내에 포함되어 있는 문자열 구하기
+*	문자열이 같은지 비교
+*	문자열 크기 비교 (사전 순)
 */
 
-namespace MyString {
+namespace jtd {
 
-	class string {
+	class MyString {
 	public:
-		string(const char character, const unsigned int duplicateCount);
-		string(const char* string);
-		string(const string& other);
-		~string();
+		MyString(const char single_character);
+		MyString(const char single_character, const unsigned int duplicate_count);
+		MyString(const char* src);
+		MyString(const MyString& other);
+		~MyString();
 
-		void append(const string& s);
-		void copy(const string& src);
-		unsigned int strlen();
+		unsigned int capacity() const;
+		void reserve(const unsigned int size);
+
+		MyString& assign(const MyString& src, const unsigned int assign_position);
+		MyString& assign(const char* src, const unsigned int assign_position);
+		MyString& assign(const char src, const unsigned int assign_position);
+
+		MyString& append(const MyString& addition);
+		MyString& append(const char* addition);
+		MyString& append(const char addition);
+
+		MyString& insert(const MyString& src, const unsigned int insert_position);
+		MyString& insert(const char* src, const unsigned int insert_position);
+		MyString& insert(const char src, const unsigned int insert_position);
+
+		//MyString& erase(const unsigned int position, const int count);
+
+		//unsigned int find(const int find_from, const MyString& str) const;
+		//unsigned int find(const int find_from, const char* str) const;
+		//unsigned int find(const int find_from, const char c) const;
+
+		//int compare(const MyString& src) const;
+		//int compare(const char* src) const;
+	
+	private:
+		void initializeContents(unsigned int capacity);
+		void copyContents(const MyString& src);
+
+	public:
+		unsigned int strlen() const;
+		void print() const;
+		void dissect() const;
+		char at(const unsigned int position) const;
 
 	private:
-		char* string_;
-		int length_;
+		char*			contents_;
+		unsigned int	length_;
+		unsigned int	capacity_;
 	};
-
-	void copy(const string& src, string& dest);
 }

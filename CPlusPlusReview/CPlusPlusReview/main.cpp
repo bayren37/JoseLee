@@ -1,28 +1,16 @@
 #include <iostream>
-
+#include <cstdlib>
 #include "review.h"
 
-void main()
+int main()
 {    
-	Date::Date myDay(2020, 7, 4);
+	jtd::MyString myString("0123456789");
+	myString.print(); //abcdef
+	std::cout << std::endl;
 
-	int i, j;
+	const char* character = "xyz";
+	myString.insert(character, 1); //abcdxyz 를 기대
+	myString.print();//실제 abcdx
 
-	while (true)
-	{
-		std::cin >> i>> j;
-		switch (i)
-		{
-		case 0:
-			myDay.AddDay(j);
-			break;
-		case 1:
-			myDay.AddMonth(j);
-			break;
-		case 2:
-			myDay.AddYear(j);
-			break;
-		}
-		myDay.ShowDate();
-	}
+	return 0;
 }

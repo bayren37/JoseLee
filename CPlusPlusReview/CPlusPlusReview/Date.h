@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-namespace Date {
+namespace jtd {
 	const std::vector<int> FULL_MONTH = { 1,3,5,7,8,10,12 };
 
 	class Date {

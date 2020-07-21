@@ -1,7 +1,7 @@
 #include "Date.h"
 #include <iostream>
 #include <algorithm>
-namespace Date {
+namespace jtd {
 	constexpr uint32_t MONTH_IN_YEAR = 12;
 
 	Date::Date(int year, int month, int date) : year_(year), month_(month), day_(date) 
