@@ -28,7 +28,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MyString.cpp">
-      <Filter>Main</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

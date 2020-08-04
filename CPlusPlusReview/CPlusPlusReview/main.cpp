@@ -1,16 +1,17 @@
 #include <iostream>
-#include <cstdlib>
+#include <string>
 #include "review.h"
 
-int main()
-{    
-	jtd::MyString myString("0123456789");
-	myString.print(); //abcdef
-	std::cout << std::endl;
+void main()
+{
+	jtd::MyString abcdefghijk("01234567");
 
-	const char* character = "xyz";
-	myString.insert(character, 1); //abcdxyz 를 기대
-	myString.print();//실제 abcdx
-
-	return 0;
+	abcdefghijk.erase(0, 9);
+	abcdefghijk.print();
+	std::cout << std::endl << abcdefghijk.strlen();
+	//abcdefghijk.erase(0, 3);
+	//abcdefghijk.erase(0, 3);
+	//abcdefghijk.erase(0, 3);
+	
 }
+

@@ -3,18 +3,10 @@
 #include <iostream>
 #include <limits>
 #include <cassert>
-#include <cstring>
+#include <algorithm>
 
 namespace jtd {
 	constexpr auto _BLANK_ = ' ';
-
-	MyString::MyString(const char single_character)
-	{
-		capacity_ = 2;
-		length_ = 1;
-		contents_ = new char[capacity_];
-		contents_[0] = single_character;
-	}
 
 	MyString::MyString(const char single_character, const unsigned int duplicate_count)
 	{
@@ -72,7 +64,6 @@ namespace jtd {
 	{
 		return assign(src.contents_, assign_position);
 	}
-
 	MyString& MyString::assign(const char* src, const unsigned int assign_position)
 	{
 		const auto srcLength = ::strlen(src);
@@ -85,7 +76,7 @@ namespace jtd {
 			length_ = assign_position + srcLength;
 			if (capacity_ < length_) {
 				capacity_ = length_ * 2;
-				initializeContents(capacity_);
+				reallocation(capacity_);
 			}
 
 			auto copy = MyString(*this);
@@ -113,7 +104,7 @@ namespace jtd {
 			length_ = assign_position + 1;
 			if (capacity_ < length_) {
 				capacity_ = length_ * 2;
-				initializeContents(capacity_);
+				reallocation(capacity_);
 			}
 			copyContents(copy);
 
@@ -147,12 +138,11 @@ namespace jtd {
 
 	MyString& MyString::insert(const char* src, const unsigned int insert_position)
 	{
-		if (insert_position < length_)
-		{
-			length_ += ::strlen(src);
+		if (insert_position < length_) {
+			length_ += ::strlen(src);//TODO: implement with MyString 
 			if (capacity_ < length_) {
 				capacity_ = length_ * 2;
-				initializeContents(capacity_);
+				reallocation(capacity_);
 			}
 
 			for (size_t i = length_; i > insert_position; --i)
@@ -165,11 +155,10 @@ namespace jtd {
 
 	MyString& MyString::insert(const char src, const unsigned int insert_position)
 	{
-		if (insert_position < length_)
-		{
+		if (insert_position < length_) {
 			if (capacity_ < ++length_) {
 				capacity_ = length_ * 2;
-				initializeContents(capacity_);
+				reallocation(capacity_);
 			}
 
 			for (size_t i = length_; i > insert_position; --i)
@@ -180,7 +169,79 @@ namespace jtd {
 		return *this;
 	}
 
-	void MyString::initializeContents(unsigned int capacity)
+	MyString& MyString::erase(const unsigned int position, const int count)
+	{
+		if (position > length_)
+			return *this;
+
+		if (count > 0) {
+			for (int i = position; i < length_ - count; i++) {
+				contents_[i] = contents_[i + count];
+			}
+			length_ -= count;
+		}
+		else {
+			for (int i = position; i > -count; i--) {
+				contents_[i - 1] = contents_[i + count];
+			}
+			length_ += count;
+		}
+		return *this;
+	}
+
+	int MyString::find(const MyString& str, const int find_from) const
+	{
+		if (str.length_ == 0 || length_ == 0)
+			return -1;
+
+		int i, j = 0;
+		for (i = 0; i < length_; i++)
+		{
+			for (j = i; j < i + str.length_; j++)
+			{
+				if (str.contents_[j] != contents_[j])
+					break;
+			}
+		}
+
+		if (j == str.length_)
+			return i;
+
+		return -1;
+	}
+
+	int MyString::find(const char* str, const int find_from) const
+	{
+		return find(MyString(str), find_from);
+	}
+
+	int MyString::find(const char c, const int find_from) const
+	{
+		return find(MyString(c), find_from);
+	}
+
+	int MyString::compare(const MyString& str) const
+	{
+		if (str.length_ == 0 && length_ == 0)
+			return 0;
+
+		for (size_t i = 0; i < std::min(length_, str.length_); i++)
+		{
+			auto difference = contents_[i] - str.contents_[i];
+			if (difference < 0)
+				return -1;
+			else if (difference > 0)
+				return 1;
+		}
+		return 0;
+	}
+
+	int MyString::compare(const char* str) const
+	{
+		return compare(MyString(str));
+	}
+
+	void MyString::reallocation(unsigned int capacity)
 	{
 		delete[] contents_;
 		contents_ = new char[capacity];
@@ -206,9 +267,8 @@ namespace jtd {
 	void MyString::dissect() const
 	{
 		for (size_t i = 0; i < length_; i++)
-		{
-			std::cout << contents_[i] << std::endl;
-		}
+			std::cout << contents_[i] << ' ';
+		std::cout << std::endl;
 	}
 
 	char MyString::at(const unsigned int position) const

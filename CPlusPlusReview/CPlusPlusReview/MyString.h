@@ -14,8 +14,7 @@ namespace jtd {
 
 	class MyString {
 	public:
-		MyString(const char single_character);
-		MyString(const char single_character, const unsigned int duplicate_count);
+		MyString(const char single_character, const unsigned int duplicate_count = 1);
 		MyString(const char* src);
 		MyString(const MyString& other);
 		~MyString();
@@ -35,17 +34,17 @@ namespace jtd {
 		MyString& insert(const char* src, const unsigned int insert_position);
 		MyString& insert(const char src, const unsigned int insert_position);
 
-		//MyString& erase(const unsigned int position, const int count);
+		MyString& erase(const unsigned int position, const int count);
 
-		//unsigned int find(const int find_from, const MyString& str) const;
-		//unsigned int find(const int find_from, const char* str) const;
-		//unsigned int find(const int find_from, const char c) const;
-
-		//int compare(const MyString& src) const;
-		//int compare(const char* src) const;
+		int find(const MyString& str, const int find_from) const;
+		int find(const char* str, const int find_from) const;
+		int find(const char c, const int find_from) const;
+		
+		int compare(const MyString& str) const;
+		int compare(const char* str) const;
 	
 	private:
-		void initializeContents(unsigned int capacity);
+		void reallocation(unsigned int capacity);
 		void copyContents(const MyString& src);
 
 	public:
